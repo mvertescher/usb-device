@@ -83,7 +83,7 @@ impl<B: UsbBus> UsbDevice<'_, B> {
             .alloc(
                 Some(0x80.into()),
                 EndpointType::Control,
-                config.max_packet_size_0 as u16,
+                128,
                 0,
             )
             .expect("failed to alloc control endpoint");
