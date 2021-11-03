@@ -108,6 +108,7 @@ impl<B: UsbBus> ControlPipe<'_, B> {
                 self.i = 0;
                 self.len = req.length as usize;
                 self.state = ControlState::DataOut(req);
+                return Some(req);
             } else {
                 // No data stage
 
@@ -221,6 +222,7 @@ impl<B: UsbBus> ControlPipe<'_, B> {
     pub fn accept_out(&mut self) -> Result<()> {
         match self.state {
             ControlState::CompleteOut => {}
+            ControlState::DataOut(_) => {}
             _ => return Err(UsbError::InvalidState),
         };
 
